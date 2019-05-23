@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Audio API</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Audio API</h1>
+				</section>
+				<section>
+					<div class="handle-text">Play audio files</div>
+					<div class="handle-text">Create sound with oscillators</div>
+					<div class="handle-text">Manipulate audio from microphone or camera</div>
+					<div class="handle-text">Route sounds into effects (delay, reverb, distortion, filter)</div>
+					<div class="handle-text">Analyze sounds (visualizations)</div>
+				</section>
+				<section>
+					<h3>Audio Context</h3>
+					<pre><code>const audioContext = new AudioContext();</code></pre>
+				</section>
+				<section>
+					<h3>Oscillator</h3>
+					<pre><code>const oscillator = new audioContext.createOscillator();</code></pre>
+					<pre><code>oscillator.frequency.value = 60;</code><code>oscillator.type = 'sine';</code></pre>
+					<pre><code>oscillator.connect(audioContext);</code><code>oscillator.start(audioContext.currentTime);</code><code>oscillator.stop(audioContext.currentTime);</code></pre>
+				</section>
+				<section>
+					<h3>Waveform types</h3>
+					<img class="waveform-types" src="./images/waveforms.png" alt="waveform types" width="800" height="700" data-width="65%" data-height="65%">
+				</section>
+				<section>
+					<h3>Gain</h3>
+					<pre><code>const _gainNode = audioContext.createGain();</code><code>_gainNode.gain.value = 0; // max</code><code>_gainNode.gain.value = 1; // min</code></pre>
+				</section>
+				<section>
+					<h3>Filter</h3>
+					<pre><code>const filter = audioContext.createBiquadFilter();</code><code>filter.type = 'lowpass';</code><code>filter.frequency.value = 300;</code></pre>
+				</section>
+				<section>
+					<h3>Filter types</h3>
+					<img class="filter-types" src="./images/filters.png" alt="filter types" width="1200" height="900">
+				</section> 
+				<section>
+					<h3>Connections</h3>
+					<pre><code>oscillator</code><code>	.connect(filter)</code><code>	.connect(_gainNode)</code><code>	.connect(audioContext)</code></pre>
+				</section>
+				<section>
+					<h3>Audio Routing Graph</h3>
+					<img src="./images/audio-graph.png" alt="audio routing graph" width="860" height="260">
+				</section>
+				<section>
+					<h3><a href="http://thesynth.herokuapp.com/" target="_blank">Simple Oscillator with Filter and LFO</a></h3>
+				</section>
+				<section>
+					<h3>Visualization</h3>
+					<pre><code>const analyser = audioContext.createAnalyser();</code><code>source.connect(analyser);</code></pre>
+				</section>
+				<section>
+					<h3><a href="http://mdn.github.io/violent-theremin/" target="_blank">Mouse Theremin</a></h3>
+				</section>
+				<section>
+					<h3><a href="http://webaudiodemos.appspot.com/MIDIDrums/index.html" target="_blank">More Complex Audio Functions</a></h3>
+				</section>
+				<section>
+					<h3 class="header-media-content"><a href="https://mdn.github.io/webaudio-examples/stream-source-buffer/" target="_blank">Web Audio API AudioContext.createMediaElementSource() method</a></h3>
+				</section>
+				<section>
+					<h3><a href="https://ra44o.github.io/audio-api-example/" target="_blank">I also tried to create something...</a></h3>
+				</section>
+				<section>
+					<h1>Thanks for attention!</h1>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
